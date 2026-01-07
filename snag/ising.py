@@ -1,5 +1,5 @@
+import numpy as np
 from qiskit.quantum_info import SparsePauliOp
-
 
 def gen_hamiltonian_op(field, coupling, n_qubits, pbc=True):
     r"""
