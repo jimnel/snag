@@ -1,19 +1,16 @@
 import numpy as np
-from itertools import combinations
+from itertools import product, combinations
 
-class NonInt1D:
-    def __init__(self, n_sites):
-        self.n_sites = n_sites
-    
-    def ks(self):
-        ns = np.arange(self.n_sites)-self.n_sites//2
-        return 2*np.pi*(ns) / self.n_sites
-    
-    def single_particle_spectrum(self):
-        return -2*np.cos(self.ks())
 
-    def many_body_spectrum(self, n_part):
-        one_part_spec = self.single_particle_spectrum()
-        spec = [one_part_spec[[comb]][0] for comb in combinations(range(self.n_sites), n_part)]
-        spec = np.array(spec).sum(1)
-        return np.sort(spec)
+class NonInteracting:
+    def __init__(self, t_matrix):
+        self.n_sites = t_matrix.shape[0]
+        self.levels = np.linalg.eigvalsh(t_matrix)
+
+    def total_energy(self, n_up, n_dn):
+        return self.levels[:n_up].sum() + self.levels[:n_dn].sum()
+
+    def full_spectrum(self, n_up, n_dn):
+        dim = len(self.levels)
+        full_spectrum = [self.levels[i]+self.levels[j] for i,j in product(combinations(range(dim), n_up), combinations(range(dim), n_dn))]
+        return np.sort(np.array(full_spectrum))
