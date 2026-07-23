@@ -5,7 +5,7 @@ from itertools import product, combinations
 class NonInteracting:
     def __init__(self, t_matrix):
         self.n_sites = t_matrix.shape[0]
-        self.levels = np.linalg.eigvalsh(t_matrix)
+        self.levels = np.linalg.eigvalsh(-t_matrix)
 
     def total_energy(self, n_up, n_dn):
         return self.levels[:n_up].sum() + self.levels[:n_dn].sum()

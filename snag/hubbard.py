@@ -37,7 +37,7 @@ class Hubbard:
     def __repr__(self):
         return f"spin_z={self.spin_z}, dim={self.dim}"
 
-    def n_up_n_dn(self):
+    def doubles(self):
         return (self.basis[:, 0] * self.basis[:, 1]).sum(1)
 
     def hopping(self, t_mat):

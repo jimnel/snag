@@ -8,7 +8,7 @@ import pytest
 def test_ring_spectrum(n_sites):
 
     qbits = qse.lattices.ring(1.0, n_sites)
-    t_mat = -qbits.get_adjacency_matrix(1.0)
+    t_mat = qbits.get_adjacency_matrix(1.0)
 
     calc = snag.NonInteracting(t_mat)
 
@@ -31,7 +31,7 @@ def test_argreement(topology, n_sites):
     if topology == "ring":
         qbits = qse.lattices.ring(1.0, n_sites)
 
-    t_mat = -qbits.get_adjacency_matrix(1.0)
+    t_mat = qbits.get_adjacency_matrix(1.0)
 
     calc = snag.Hubbard(n_up=n_up, n_dn=n_dn, n_sites=n_sites)
     spectrum = np.linalg.eigvalsh(calc.hopping(t_mat))
