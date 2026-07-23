@@ -49,7 +49,7 @@ class Hubbard:
                 s = (self.basis[i] + self.basis[j]) % 2
                 if s.sum() == 2:
                     site_1, site_2 = np.where(s.sum(0))[0]
-                    hopping_mat[i, j] = hopping_mat[j, i] = t_mat[site_1, site_2]
+                    hopping_mat[i, j] = hopping_mat[j, i] = -t_mat[site_1, site_2]
 
         return hopping_mat
     
