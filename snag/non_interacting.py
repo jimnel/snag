@@ -12,5 +12,10 @@ class NonInteracting:
 
     def full_spectrum(self, n_up, n_dn):
         dim = len(self.levels)
-        full_spectrum = [self.levels[i]+self.levels[j] for i,j in product(combinations(range(dim), n_up), combinations(range(dim), n_dn))]
+        full_spectrum = [
+            self.levels[i] + self.levels[j]
+            for i, j in product(
+                combinations(range(dim), n_up), combinations(range(dim), n_dn)
+            )
+        ]
         return np.sort(np.array(full_spectrum))

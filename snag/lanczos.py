@@ -1,11 +1,14 @@
 import numpy as np
 from dataclasses import dataclass
 
+
 def hamiltonian_element(h, psi1, psi2):
     return (np.conj(psi1.T) @ (h @ psi2)).item()
 
+
 def compute_energy(h, psi):
     return np.real((np.conj(psi.T) @ (h @ psi)).item())
+
 
 def solve_2x2_matrix(a, b, c):
     """
@@ -23,10 +26,11 @@ def solve_2x2_matrix(a, b, c):
     ax + cy = {a+b pm delta}x / 2
     y = {b -a pm delta}x / 2c
     """
-    delta = np.sqrt( (a-b)**2 + 4. * c * np.conj(c) )
-    eig_lower = (a+b - delta) * 0.5
-    coef2 = (b-a - delta) / (2.*c)
+    delta = np.sqrt((a - b) ** 2 + 4.0 * c * np.conj(c))
+    eig_lower = (a + b - delta) * 0.5
+    coef2 = (b - a - delta) / (2.0 * c)
     return coef2, eig_lower
+
 
 @dataclass
 class Result:
@@ -34,7 +38,8 @@ class Result:
     e0: float
     state: np.ndarray
 
-def run_lanczos(hamiltonian, max_iter = 20):
+
+def run_lanczos(hamiltonian, max_iter=20):
     dim = len(hamiltonian)
     psi0 = np.random.rand(dim, 1) + 1j * np.random.rand(dim, 1)
     psi0 /= np.linalg.norm(psi0)
@@ -45,13 +50,15 @@ def run_lanczos(hamiltonian, max_iter = 20):
     print("Initial Energy: ", e0)
 
     print("Begining Loop:\nIteration, Energy\n")
-    
-    results = np.zeros(max_iter+1)
+
+    results = np.zeros(max_iter + 1)
     results[0] = e0
 
     for i in range(max_iter):
         shifted_hamiltonian = hamiltonian.copy()
-        np.fill_diagonal(shifted_hamiltonian, np.diag(shifted_hamiltonian) - np.real(e0))
+        np.fill_diagonal(
+            shifted_hamiltonian, np.diag(shifted_hamiltonian) - np.real(e0)
+        )
 
         psi1 = shifted_hamiltonian @ psi0
         psi1 /= np.linalg.norm(psi1)
@@ -64,7 +71,7 @@ def run_lanczos(hamiltonian, max_iter = 20):
         psi0 += psi1 * coef2
         psi0 /= np.linalg.norm(psi0)
 
-        print(i+1, e0)
-        results[i+1] = np.real(e0)
+        print(i + 1, e0)
+        results[i + 1] = np.real(e0)
 
     return Result(results, e0, psi0)
