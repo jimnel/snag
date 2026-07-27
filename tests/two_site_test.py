@@ -18,3 +18,8 @@ def test_two_site(u):
     e_gs = 0.5 * (u - np.sqrt(u * u + 16))
 
     assert np.allclose(gs, e_gs)
+
+
+def test_doubles_zero():
+    calc = snag.Hubbard(2, 0, 4)
+    assert calc.doubles().sum() == 0
