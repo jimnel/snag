@@ -1,9 +1,10 @@
 import numpy as np
-from .hubbard import Hubbard
 from scipy.spatial.distance import squareform
+
 
 def radial_hopping(r):
     return 1.0 / r**3
+
 
 class HubbardMol:
     def __init__(self, hubbard_calc, u=1.0, hopping_func=None):
