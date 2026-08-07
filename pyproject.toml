@@ -18,4 +18,5 @@ snag = "snag"
 [dependency-groups]
 dev = [
     "ruff>=0.15.22",
+    "pytest>=9.1.1",
 ]

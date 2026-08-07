@@ -26,7 +26,7 @@ jobs:
         enable-cache: true  # Automatically caches your dependencies
 
     # 2. Install using uv
-    - name: Install qkernel and testing dependencies
+    - name: Install dependencies
       run: |
         uv sync --dev
 
@@ -35,3 +35,8 @@ jobs:
       run: |
         uv run ruff check . --output-format github
         uv run ruff format --check .
+
+    # 3. Test
+    - name: Test with pytest
+      run: |
+        uv run pytest
