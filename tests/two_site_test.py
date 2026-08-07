@@ -1,7 +1,8 @@
-import qse
 import numpy as np
-import snag
 import pytest
+import qse
+
+import snag
 
 
 @pytest.mark.parametrize("u", [0.0, 1.0, 2.0])

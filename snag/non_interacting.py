@@ -1,5 +1,6 @@
+from itertools import combinations, product
+
 import numpy as np
-from itertools import product, combinations
 
 
 class NonInteracting:

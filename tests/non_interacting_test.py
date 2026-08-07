@@ -1,7 +1,8 @@
-import qse
 import numpy as np
-import snag
 import pytest
+import qse
+
+import snag
 
 
 @pytest.mark.parametrize("n_sites", [3, 4, 10, 11, 12, 21])

@@ -1,4 +1,5 @@
-from itertools import product, combinations
+from itertools import combinations, product
+
 import numpy as np
 
 
