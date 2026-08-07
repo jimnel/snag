@@ -1,6 +1,5 @@
 import numpy as np
 import pytest
-import qse
 
 import snag
 
@@ -8,10 +7,9 @@ import snag
 @pytest.mark.parametrize("u", [0.0, 1.0, 2.0])
 def test_two_site(u):
 
-    qbits = qse.Qbits(np.array([[0.0], [1.0]]))
-    t_mat = qbits.get_adjacency_matrix(1.0)
+    t_mat = np.array([[0.0, 1.0], [1.0, 0.0]])
 
-    calc = snag.Hubbard(1, 1, qbits.nqbits)
+    calc = snag.Hubbard(1, 1, 2)
 
     ham = calc.hopping(t_mat) + u * np.diag(calc.doubles())
     gs = np.linalg.eigvalsh(ham)[0]
