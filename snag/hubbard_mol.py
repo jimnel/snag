@@ -23,3 +23,6 @@ class HubbardMol:
         hopping = squareform(self.hopping_func(d))
         ham = self.hubbard_calc.hopping(hopping) + self.u * np.diag(self.doubles)
         return np.linalg.eigvalsh(ham)[0]
+
+    def batch_solve(self, distances):
+        return np.array([self.solve(d) for d in distances])
