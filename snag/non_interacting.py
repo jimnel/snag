@@ -13,10 +13,31 @@ class NonInteracting:
 
     def full_spectrum(self, n_up, n_dn):
         dim = len(self.levels)
-        full_spectrum = [
-            self.levels[i] + self.levels[j]
-            for i, j in product(
-                combinations(range(dim), n_up), combinations(range(dim), n_dn)
-            )
-        ]
+
+        if n_up + n_dn == 0:
+            return np.array([0])
+
+        if n_up == 0:
+            full_spectrum = [
+                self.levels[i].sum() for i in product(combinations(range(dim), n_dn))
+            ]
+
+        elif n_dn == 0:
+            full_spectrum = [
+                self.levels[i].sum() for i in product(combinations(range(dim), n_up))
+            ]
+
+        else:
+            full_spectrum = [
+                self.levels[list(i)].sum() + self.levels[list(j)].sum()
+                for i, j in product(
+                    combinations(range(dim), n_up), combinations(range(dim), n_dn)
+                )
+            ]
         return np.sort(np.array(full_spectrum))
+
+
+def arr_sum(a):
+    if isinstance(a, np.ndarray):
+        return a.sum()
+    return a

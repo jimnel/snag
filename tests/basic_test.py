@@ -9,7 +9,7 @@ def test_two_site(u):
 
     t_mat = np.array([[0.0, 1.0], [1.0, 0.0]])
 
-    calc = snag.Hubbard(1, 1, 2)
+    calc = snag.Hubbard(snag.Sector(1, 1, 2))
 
     ham = calc.hopping(t_mat) + u * np.diag(calc.doubles())
     gs = np.linalg.eigvalsh(ham)[0]
@@ -20,5 +20,5 @@ def test_two_site(u):
 
 
 def test_doubles_zero():
-    calc = snag.Hubbard(2, 0, 4)
+    calc = snag.Hubbard(snag.Sector(2, 0, 4))
     assert calc.doubles().sum() == 0
