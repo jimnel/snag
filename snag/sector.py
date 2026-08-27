@@ -27,4 +27,5 @@ class Sector:
 
 
 def check_number(n, l):
-    assert (n >= 0) and (n <= l)
+    if (n < 0) or (n > l):
+        raise ValueError
